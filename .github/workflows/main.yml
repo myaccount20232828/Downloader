@@ -1,0 +1,28 @@
+name: Downloader
+on:
+  workflow_dispatch:
+    inputs:
+      URL:
+        description: 'File URL'
+        required: true
+        type: string
+jobs:
+  main:
+    name: Downloader
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download File
+        run: curl "${{inputs.URL}}" -o File
+      - name: Stuff
+        run: |
+             #FilePath="FS${{inputs.Path}}"
+             #FileName=$(basename "$FilePath")
+             #echo "FileName=$FileName" >> $GITHUB_ENV
+             #zip -r9 "$FileName.zip" "$FilePath"
+      - name: Upload 
+        uses: actions/upload-artifact@v3
+        with:
+          #name: ${{env.FileName}}
+          name: File
+          path: File
